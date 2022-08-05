@@ -1,8 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Search from './Search';
 import {CustomSelect} from "./CustomSelect";
 import styled from 'styled-components';
 
+interface ControlsProps {
+    onSearch: (search: string, region: string) => void
+}
 
 const options = [
     {value: 'Africa', label: 'Africa'},
@@ -24,9 +27,13 @@ const Wrapper = styled.div`
   }
 `;
 
-const Controls = (): JSX.Element => {
+const Controls = ({ onSearch }: ControlsProps): JSX.Element => {
     const [search, setSearch] = useState('');
     const [region, setRegion] = useState('');
+
+    useEffect(() => {
+        onSearch(search, region)
+    }, [search, region])
 
     return (
         <Wrapper>
